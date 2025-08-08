@@ -1,5 +1,8 @@
-import cv2
-from pyzbar.pyzbar import decode
+import cv2, sys
+from pyzbar.pyzbar import decode, ZBarSymbol
+
+# Write Recognized
+log = open('codes.log', 'w')
 
 # Open the default camera
 cam = cv2.VideoCapture(0)
@@ -10,34 +13,20 @@ cam.set(cv2.CAP_PROP_SATURATION, 0)
 frame_width = int(cam.get(cv2.CAP_PROP_FRAME_WIDTH))
 frame_height = int(cam.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
-# Define the codec and create VideoWriter object
-#fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-#out = cv2.VideoWriter('output.mp4', fourcc, 20.0, (frame_width, frame_height))
+last_data = ""
 
 while True:
     ret, frame = cam.read()
 
-    detectedBarcodes = decode(frame)
+    barcodes = decode(frame, symbols=[])
 
-    if detectedBarcodes:
-        for barcode in detectedBarcodes:  
-          
-            # Locate the barcode position in image
-            (x, y, w, h) = barcode.rect
-            
-            # Put the rectangle in image using 
-            # cv2 to highlight the barcode
-            cv2.rectangle(frame, (x-10, y-10),
-                          (x + w+10, y + h+10), 
-                          (255, 0, 0), 2)
-            
-            if barcode.data!="":
-              
+    if barcodes:
+        if barcodes[0].data != "" and last_data != barcodes[0].data:
+            last_data = barcodes[0].data
             # Print the barcode data
-                print(barcode.data)
-                print(barcode.type)
+            log.write(str(barcodes[0].data) + " | " + barcodes[0].type + "\n")
+            print("Scanned!")
 
-    #out.write(frame)
     cv2.imshow('Camera', frame)
 
     # Press 'q' to exit the loop
@@ -46,5 +35,5 @@ while True:
 
 # Release the capture and writer objects
 cam.release()
-#out.release()
+log.close()
 cv2.destroyAllWindows()
