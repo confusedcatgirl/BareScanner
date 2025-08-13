@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+    <style>
+        .topbar {
+            width: calc(100% - 20px);
+            height: 5em;
+            background-color: aqua;
+            padding: 10px;
+        }
+
+        .center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-50%);
+        }
+
+        body {
+            margin: 0;
+            background-image: url("wallpaper.jpg");
+        }
+
+        button {
+            width: 100px;
+            height: 100px;
+            font-size: xx-large;
+            
+            padding: 0;
+            margin: 5px;
+            border: 0;
+            border-radius: 10px;
+            border-color: rgba(0,0,0,0);
+            background: white;
+        }
+
+        button:hover {
+            background: white;
+        }
+
+        #back {
+            background: rgb(150,0,0);
+            color:white;
+            font-weight: 500;
+        }
+
+        #enter {
+            background: rgb(0,128,0);
+            color:white;
+            font-weight: 500;
+        }
+
+        p {
+            border: 0;
+            padding: 0;
+            margin: 5px;
+            width: 328px;
+            min-height: 40px;
+            font-size: xx-large;
+            text-align: center;
+            border-radius: 10px;
+            background-color: white;
+        }
+
+    </style>
+
+    <script>
+        password = "";
+        passin.innerText = " ";
+
+        function addChar(char) {
+            if (passin.innerText) {
+                passin.innerText += "●";
+                password += char;
+            }
+        }
+
+        function removeLastChar() {
+            if (passin.innerText.length > 0) {
+                passin.innerText = passin.innerText.substring(0, passin.innerText.length - 1);
+                password = password.substring(0, password.length - 1);
+            }
+        }
+
+        function checkPass() {
+            console.log(password)
+        }
+    </script>
+
+    <body>
+        <div class="topbar"><img src="icon.png" style="float: right; margin: 0;"></div>
+        <div class="center">
+            <p id="passin"> </p><br>
+            <button onclick="addChar(1)">1</button>
+            <button onclick="addChar(2)">2</button>
+            <button onclick="addChar(3)">3</button><br>
+            <button onclick="addChar(4)">4</button>
+            <button onclick="addChar(5)">5</button>
+            <button onclick="addChar(6)">6</button><br>
+            <button onclick="addChar(7)">7</button>
+            <button onclick="addChar(8)">8</button>
+            <button onclick="addChar(9)">9</button><br>
+            <button onclick="removeLastChar()" id="back">&#8592;</button>
+            <button onclick="addChar(0)">0</button>
+            <button onclick="checkPass()" id="enter">&#8626;</button><br>
+        </div>
+    </body>
+</html>
