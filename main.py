@@ -1,5 +1,6 @@
 from PyQt6.QtWidgets import QApplication, QMainWindow
 from PyQt6 import QtWebEngineWidgets
+from PyQt6.QtCore import QUrl
 from pathlib import Path
 import sys
 import os
@@ -12,7 +13,7 @@ class MainWindow(QMainWindow):
         
         view = QtWebEngineWidgets.QWebEngineView()
         html = Path('html\\index.html').read_text(encoding="utf8")
-        view.setHtml(html)
+        view.setHtml(html, QUrl.fromLocalFile(os.getcwd() + os.path.sep + "html" + os.path.sep))
         self.setCentralWidget(view)
         self.showFullScreen()
 
